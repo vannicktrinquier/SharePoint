@@ -14,4 +14,7 @@
   <AppPrincipal>
     <RemoteWebApplication ClientId="*" />
   </AppPrincipal>
+  <AppPermissionRequests>
+    <AppPermissionRequest Scope="http://sharepoint/search" Right="QueryAsUserIgnoreAppPrincipal" />
+  </AppPermissionRequests>
 </App>

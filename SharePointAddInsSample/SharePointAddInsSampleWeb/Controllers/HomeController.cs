@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SharePointAddInsSampleWeb.Service.Contracts;
+using SharePointAddInsSampleWeb.Service.Impl;
 
 namespace SharePointAddInsSampleWeb.Controllers
 {
@@ -18,16 +20,8 @@ namespace SharePointAddInsSampleWeb.Controllers
 
             using (var clientContext = spContext.CreateUserClientContextForSPHost())
             {
-                if (clientContext != null)
-                {
-                    spUser = clientContext.Web.CurrentUser;
-
-                    clientContext.Load(spUser, user => user.Title);
-
-                    clientContext.ExecuteQuery();
-
-                    ViewBag.UserName = spUser.Title;
-                }
+                ISearchService searchService = new SearchService(clientContext);
+                var latestDocuments = searchService.GetLatestModifiedDocuments();
             }
 
             return View();
